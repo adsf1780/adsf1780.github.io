@@ -3,14 +3,23 @@ title: C++ 기억할 것들
 excerpt: C++ 쓸 때 유용하게 사용되는 것들
 categories: [C++]
 tags: [C++, tip]
+pin: true
 ---
 
-### 입출력 빠르게 하기
+### 입출력
 
 ```cpp
+// 입출력 빠르게 하기
+
 ios_base::sync_with_stdio(false);
 cin.tie(0); cout.tie(0);
 
+// 출력 값 소수점 설정
+cout << fixed;
+cout.precision(10); // 소수점 10자리 출력
+```
+
+```cpp
 cout << endl; // 대신에
 cout << '\n'; // 이거 쓰기. 훨씬 빠름
 ```
@@ -107,6 +116,7 @@ v.erase(v.begin() + 1, v.begin() + 3); // 인덱스 1부터 인덱스 3까지의
 // 할당
 vector<int> v; // 함수 밖에서 정의
 v.assign(n, 0); // 함수 안에서 n개의 0으로 초기화
+v.resize(10); // 10만큼의 공간을 확보만 함. 즉 0~9까지의 인덱스로 접근 가능. reserve 쓰면 v[idx]가 UB임.
 
 // 찾기
 cout << find(v.begin(), v.end(), 7) - v.begin(); // 7의 index 반환
@@ -114,6 +124,11 @@ cout << find(v.begin(), v.end(), 7) - v.begin(); // 7의 index 반환
 if(find(v.begin(), v.end(), 5) == v.end()){ // vector 내에 존재하지 않으면 v.end() 반환
     cout << "not exist";
 }
+
+// pair 찾기
+vector<pair<int, int>> v;
+
+auto it = find_if(v.begin(), v.end(), [=](const pair<int, int> p)-> bool{return p.first == elem1;});
 
 // 모든 요소 더하기
 #include <numeric>
@@ -137,10 +152,14 @@ bool comp(int a, int b){
 }
 sort(v.begin(), v.end(), comp); // false일 경우 swap
 
-// 인덱스 접근을 위한 공간 확보하기
-v.assign(10, -1); // 10만큼의 공간을 -1로 채움
-v.resize(10); // 10만큼의 공간을 확보만 함. 즉 0~9까지의 인덱스로 접근 가능.
+// pair가 요소일 때 초기화
+vector<pair<int, int>> tree(n, {-1, -1}); // n개의 공간을 {-1, -1}로 초기화
 
+// lower_bound
+lower_bound(begin, end, value); // value 이상인 첫 번째 요소를 가리키는 iterator 반환. 정렬된 컨테이너에서만 동작. O(log n)
+vector<int> v = {1, 2, 4, 4, 5, 6}; // 오름차순 정렬되어 있어야 함
+auto it = lower_bound(v.begin(), v.end(), 4);
+cout << "Index: " << (it - v.begin()); // 2
 ```
 
 ### set
@@ -187,6 +206,11 @@ set<pair<int, int>, compare> list;
 // 1. 중복을 허용하지 않음
 // 2. 삽입과 제거를 O(log(n))로 실행
 
+// lower_bound
+multiset<int> s = {1, 2, 4, 4, 5};
+auto it = s.lower_bound(4); // 4 이상인 첫 번째 요소를 가리키는 iterator 반환. 정렬된 컨테이너에서만 동작. O(log n)
+
+
 ```
 
 ### map
@@ -213,7 +237,7 @@ cout << (m.find(1)) -> first << endl; // key 값 반환 = 1
 cout << (m.find(1)) -> second << endl; // value 값 반환 = 'a'
 
 if(m.find(2) == m.end()){
-    cout << "Not Found" << endl; // 값이 존재하지 않는 경우 m.end() 반환
+    cout << "Not Found" << endl; // key 값이 존재하지 않는 경우 m.end() 반환
 }
 
 // map의 value가 vector인 경우
@@ -222,6 +246,30 @@ unordered_map<int, vector<int>> tree;
 tree[1].emplace_back(2);
 tree[2].emplace_back(3);
 tree[3].emplace_back(4);
+
+// 쌍 개수
+map<int, string> m;
+
+m[1] = "apple";
+m[2] = "banana";
+
+m.size() // 2
+
+// for문
+// 1)  
+for(auto &p : m){
+    cout << "key: " << p.first << " value: " << p.second << endl;
+}
+
+// 2)
+for(auto it = m.begin(); it != m.end(); it++){
+    cout << "key: " << p->first << " value: " << p->second << endl;
+}
+
+// 3)
+for(auto &[key, value] : m){
+    cout << "key: " << key << " value: " << value << endl;
+}
 ```
 
 ### queue
@@ -262,13 +310,13 @@ priority_queue<int, vector<int>, greater<int>> pq; // min heap
 priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> q; // min heap with pair
 
 // compare 정의
-struct cmopare{
-    bool operator()(int& a, int& b){
-        return a > b;
+struct compare{ // compare(a, b)가 true -> a는 b보다 우선순위 낮음 -> b가 top에 옴
+    bool operator()(const T& a, const T& b){
+        return a > b; 
     }
-}
+};
 
-priority_queue<int, vector<int>, compare> pq;
+priority_queue<T, vector<T>, compare> pq;
 ```
 
 ### pair
@@ -291,7 +339,7 @@ for(auto& [key, value] : m){
 }
 ```
 
-### 수학 기호(절댓값, 반올림, 올림, 내림)
+### 수학(절댓값, 반올림, 올림, 내림, 제곱, 제곱근)
 
 ```cpp
 #include <cmath>
@@ -300,12 +348,38 @@ abs(-1); // 절댓값
 double ceil(double x); // 올림(double, float, long double)
 double floor(double x); // 내림(double, float, long double)
 round(3.5); // 반올림
+
+// 제곱
+#include <cmath>
+
+double pow(double base, double n); // float, long doulbe
+double result = pow(2,10); // 2^10
+
+// 제곱근
+#include <cmath>
+
+double sqrt(double x); // float, long double
+double result = sqrt(4); // 2
+
+// 유클리드 빗변
+#include <cmath>
+
+double hypotenuse = hypot(x, y); // sqrt(x^2 + y^2)
+
+// 삼각함수
+#include <cmath>
+// sin, cos, tan acos, ...
+
+// 10의 제곱의 과학적 표기
+double x = 1e-6;  // 10^-6
 ```
 
-### max_element(min_element)
+### max(min), max_element(min_element)
 
 ```cpp
 #include <algorithm>
+
+int maxValue = max(1, 2); // 2
 
 vector<int> v = {1, 2, 3, 4};
 cout << *max_element(v.begin(), v.end()); // iterator 형태로 반환되므로 * 붙여야 함
@@ -384,6 +458,21 @@ str.empty(); // str이 빈 문자열인지 확인
 reverse(str.begin(), str.end());
 ```
 
+### class
+
+```cpp
+class Shark{
+    // 멤버 변수
+    public:
+    int row;
+    int col;
+    int dist;
+
+    // 생성자
+    Shark(int row, int col, int dist) : row(row), col(col), dist(dist) {}
+};
+```
+
 ### iterator
 ```cpp
 // 이하 백준 21939번 문제와 관련된 코드
@@ -417,7 +506,7 @@ auto it = prev(set.end()); // set, map, vector 등의 마지막 iterator를 반�
 #include <queue>
 #include <climits>
 
-vector<vector<pair<int, int>>> graph; // graph[start].emplace(weight, end);
+vector<vector<pair<int, int>>> graph(n + 1); // graph[start].emplace(weight, end);
 
 vector<int> dist(n+1, INT_MAX);
 dist[k] = 0; // k: 시작 노드
@@ -435,7 +524,7 @@ while(q.size()){
     if(dist[current.second] < current.first) continue;
 
     for(pair<int, int> neighbor : graph[current.second]){
-        if(current.fist + neighbor.first < dist[neighbor.second]){
+        if(current.first + neighbor.first < dist[neighbor.second]){
             dist[neighbor.second] = current.first + neighbor.first;
             q.emplace(dist[neighbor.second], neighbor.second);
         }
