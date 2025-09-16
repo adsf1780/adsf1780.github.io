@@ -6,13 +6,18 @@ tags: [C++, tip]
 pin: true
 ---
 
+### 라이브러리
+```cpp
+#include <bits/stdc++.h> // 알고리즘 문제에 필요한 라이브러리 모음
+```
+
 ### 입출력
 
 ```cpp
 // 입출력 빠르게 하기
 
-ios_base::sync_with_stdio(false);
-cin.tie(0); cout.tie(0);
+ios_base::sync_with_stdio(0);
+cin.tie(0);
 
 // 출력 값 소수점 설정
 cout << fixed;
@@ -147,10 +152,10 @@ sort(v.begin(), v.end());
 // 내림차순 정렬
 sort(v.rbegin(), v.rend()); 
 
-bool comp(int a, int b){
-    return a > b;
+bool compare(int a, int b){ // return 타입: bool
+    return a > b; // 비교 연산자
 }
-sort(v.begin(), v.end(), comp); // false일 경우 swap
+sort(v.begin(), v.end(), compare); // false일 경우 swap
 
 // pair가 요소일 때 초기화
 vector<pair<int, int>> tree(n, {-1, -1}); // n개의 공간을 {-1, -1}로 초기화
