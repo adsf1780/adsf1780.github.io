@@ -165,6 +165,9 @@ lower_bound(begin, end, value); // value 이상인 첫 번째 요소를 가리�
 vector<int> v = {1, 2, 4, 4, 5, 6}; // 오름차순 정렬되어 있어야 함
 auto it = lower_bound(v.begin(), v.end(), 4);
 cout << "Index: " << (it - v.begin()); // 2
+
+// 디버깅할 때 특정 인덱스까지만 출력하기
+v._M_impl._M_start, 5 // 0-4번 인덱스만 보여줌
 ```
 
 ### set
@@ -322,6 +325,17 @@ struct compare{ // compare(a, b)가 true -> a는 b보다 우선순위 낮음 -> 
 };
 
 priority_queue<T, vector<T>, compare> pq;
+```
+
+### struct
+
+```cpp
+typedef struct Star{
+	int u;
+	int v;
+	double w;
+	Star(int u, int v, double w) : u(u), v(v), w(w) {} // 생성자 정의
+} Star;
 ```
 
 ### pair
