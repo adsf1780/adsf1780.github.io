@@ -558,7 +558,7 @@ while(q.size()){
 ### binary search
 ```cpp
 // 반복문으로 구현
-bool binary_search(vector<int>& arr, int len, int target){
+bool binarySearch(vector<int>& arr, int len, int target){
 	int low = 0, high = len - 1;
     
     while(low < high){
@@ -568,19 +568,27 @@ bool binary_search(vector<int>& arr, int len, int target){
         if(target == arr[mid])	return true;
         
         // mid는 내림으로 구해졌기 때문에 high = mid - 1을 하면 target에 정확히 도달할 수 없다.
-        if(target < arr[mid]){
-        	high = mid;
-        }
+        if(target < arr[mid]) high = mid;
+
         // 원하는 값이 더 크다면 검사 범위를 더 크게 잡아야 한다.
-        else if(target > arr[mid]){
-        	low = mid + 1;
-        }
+        else if(target > arr[mid]) low = mid + 1;
     }
     return false; // 마지막까지 못찾는다면 false 반환
 }
 
+int binarySearch(int target){
+    int low = 0, high = result.size() - 1;
+    while(low < high){
+        int mid = (low + high) / 2;
+        if(result[mid] < target) low = mid + 1;
+        else high = mid;
+    }
+
+    return high;
+}
+
 // 재귀적으로 구현
-bool binary_search(vector<int>& arr, int low, int high, int target){
+bool binarySearch(vector<int>& arr, int low, int high, int target){
     if(low > high)	return false;
     int mid = (low + high) / 2;
     
