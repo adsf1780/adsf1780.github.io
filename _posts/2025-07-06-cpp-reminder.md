@@ -562,14 +562,12 @@ int binarySearch(vector<int>& arr, int target){
     
     while(low < high){
     	int mid = (low + high) / 2;
-        
-        if(target == arr[mid]) return mid;
 
         // mid는 내림으로 구해졌기 때문에 high = mid - 1을 하면 target에 정확히 도달할 수 없다.
-        else if(target < arr[mid]) high = mid;
+        if(target > arr[mid]) low = mid + 1;
 
         // 원하는 값이 더 크다면 검사 범위를 더 크게 잡아야 한다.
-        else if(target > arr[mid]) low = mid + 1;
+        else high = mid;
     }
     return high;
 }
