@@ -151,6 +151,7 @@ sort(v.begin(), v.end());
 
 // 내림차순 정렬
 sort(v.rbegin(), v.rend()); 
+sort(v.begin(), v.end(), greater<>());
 
 bool compare(int a, int b){ // return 타입: bool
     return a > b; // 비교 연산자
@@ -569,7 +570,7 @@ int binarySearch(vector<int>& arr, int target){
         // 원하는 값이 더 크다면 검사 범위를 더 크게 잡아야 한다.
         else high = mid;
     }
-    return high;
+    return high; // return low 도 가능. low == high 일 때만 break 되기 때문
 }
 
 // 재귀적으로 구현
@@ -618,3 +619,10 @@ int inf = INT_MAX;
 
 float inf = INFINITY;
 ```
+
+### 기타
+
+- 1초에 약 1억 번($ =10^8 $) 연산
+- $ int: 4byte = 32bit = -2^{31} \sim 2^{31} - 1 = -2,147,483,648 \sim 2,147,483,647  \approx 2 \times 10^9 $
+- $ long long: 8byte = 64bit = -2^{63} \sim 2^{63}-1 \approx -9.22 \times 10^{18} \sim 9.22 \times 10^{18} $
+- $ unsigned long long: 0 \sim 2^{64} - 1 \approx 10^{19} $
