@@ -4,6 +4,7 @@ excerpt: C++ 쓸 때 유용하게 사용되는 것들
 categories: [C++]
 tags: [C++, tip]
 pin: true
+use_math: true
 ---
 
 ### 라이브러리
@@ -16,8 +17,7 @@ pin: true
 ```cpp
 // 입출력 빠르게 하기
 
-ios_base::sync_with_stdio(0);
-cin.tie(0);
+cin.tie(0)->sync_with_stdio(0);
 
 // 출력 값 소수점 설정
 cout << fixed;
