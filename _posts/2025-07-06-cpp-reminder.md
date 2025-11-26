@@ -620,9 +620,15 @@ int inf = INT_MAX;
 float inf = INFINITY;
 ```
 
+### 세그먼트 트리
+$ 2^k \geq N $ 을 만족하는 $ k $ 의 최솟값을 구한 후 $ 2^k \times 2 $ 을 트리 크기로 정의
+```
+
+```
+
 ### 기타
 
 - 1초에 약 1억 번($ =10^8 $) 연산
 - $ int: 4byte = 32bit = -2^{31} \sim 2^{31} - 1 = -2,147,483,648 \sim 2,147,483,647  \approx 2 \times 10^9 $
-- $ long long: 8byte = 64bit = -2^{63} \sim 2^{63}-1 \approx -9.22 \times 10^{18} \sim 9.22 \times 10^{18} $
-- $ unsigned long long: 0 \sim 2^{64} - 1 \approx 10^{19} $
+- long long: $ 8byte = 64bit = -2^{63} \sim 2^{63}-1 \approx -9.22 \times 10^{18} \sim 9.22 \times 10^{18} $
+- unsigned long long: $ 0 \sim 2^{64} - 1 \approx 10^{19} $
