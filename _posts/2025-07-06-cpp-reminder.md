@@ -174,6 +174,11 @@ v._M_impl._M_start, 5 // 0-4번 인덱스만 보여줌
 v.clear(); // capacity는 유지됨
 ```
 
+### array
+```
+array<int, 3>;
+```
+
 ### set
 
 ```cpp
@@ -630,12 +635,12 @@ float inf = INFINITY;
 - 질의 인덱스를 세그먼트 트리 인덱스로 변경하는 방법: 세그먼트 트리 index = 질의 index + $ 2^k - 1 $
 - 전체적인 과정: 
     1. 트리 초기화 하기(시간 복잡도: $ O(N) $)
-    2. 질의값 구하기(시간 복잡도: $ OlogN $)
-    3. 데이터 업데이트하기(시간 복잡도: $ OlogN $)
+    2. 질의값 구하기(시간 복잡도: $ O(logN) $)
+    3. 데이터 업데이트하기(시간 복잡도: $ O(logN) $)
 
 ```
 // 트리 배열의 크기
-int h = (int)ceil(log2(n));
+int h = (int)ceil(log(n));
 int tree_size = (1 << (h + 1));
 
 // 초기화
