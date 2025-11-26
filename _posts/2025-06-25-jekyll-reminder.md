@@ -11,7 +11,7 @@ show_each_post: false
 ## Server Local에서 Host하기
 
 1. PowerShell에서 asdf178.github.io 폴더로 경로 이동하기
-2. bundle exec jekyll s 또는 bundle exec jekyll serve (--livereload) 입력하기
+2. bundle exec jekyll s 또는 bundle exec jekyll serve (- -livereload) 입력하기
 3. http://127.0.0.1:4000/ 열기
 
 ## Post 작성하기

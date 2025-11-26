@@ -621,10 +621,75 @@ float inf = INFINITY;
 ```
 
 ### 세그먼트 트리
-$ 2^k \geq N $ 을 만족하는 $ k $ 의 최솟값을 구한 후 $ 2^k \times 2 $ 을 트리 크기로 정의
-```
+- 시간 복잡도: $ O(logN) $
+- 구간값을 구해야 하는데, 데이터 변경이 많을 때 세그먼트 트리를 쓴다.
+- $ 2^k \geq N $ 을 만족하는 $ k $ 의 최솟값을 구한 후 $ 2^k \times 2 $ 를 트리 크기로 정의(또는 메모리 낭비가 있긴 하지만 $ 4 \times N $으로 정의)
+- 구간 합: $ A[N] = A[2N] + A[2N + 1] $
+- 최대값: $ A[N] = max(A[2N], A[2N + 1]) $
+- 최소값: $ A[N] = min(A[2N], A[2N + 1]) $
+- 질의 인덱스를 세그먼트 트리 인덱스로 변경하는 방법: 세그먼트 트리 index = 질의 index + $ 2^k - 1 $
+- 전체적인 과정: 
+    1. 트리 초기화 하기(시간 복잡도: $ O(N) $)
+    2. 질의값 구하기(시간 복잡도: $ OlogN $)
+    3. 데이터 업데이트하기(시간 복잡도: $ OlogN $)
 
 ```
+// 트리 배열의 크기
+int h = (int)ceil(log2(n));
+int tree_size = (1 << (h + 1));
+
+// 초기화
+// arr: 초기 배열
+// tree: 세그먼트 트리
+// node: 세그먼트 트리 노드 번호
+// node가 담당하는 합의 범위가 start ~ end
+
+long long init(vector<long long> &arr, vector<long long> &tree, int node, int start, int end) {
+    if (start == end)    // 노드가 리프 노드인 경우
+        return tree[node] = arr[start];    // 배열의 그 원소를 가져야 함
+
+    int mid = (start + end) / 2;
+
+    // 구간 합을 구하는 경우
+    return tree[node] = init(arr, tree, node * 2, start, mid) + init(arr, tree, node * 2 + 1, mid + 1, end);
+
+    // 구간의 최솟값을 구하는 경우도 비슷하게 해줄 수 있다.
+    // return tree[node] = min(init(arr, tree, node * 2, start, mid), init(arr, tree, node * 2 + 1, mid + 1, end));
+}
+
+init(arr, tree, 1, 0, N - 1);
+
+// 합 구하기
+long long sum(vector<long long> &tree, int node, int start, int end, int left, int right) {
+    // case 1: [start, end] 앞 뒤에 [left, right]가 있는 경우,
+    // 겹치지 않기 때문에 탐색을 더 이상 할 필요가 없다.
+    if (left > end || right < start) return 0;
+
+    // case 2: [start, end]가 [left, right]에 포함
+    if (left <= start && end <= right) return tree[node];
+
+    // case 3, 4: 왼쪽 자식과 오른쪽 자식을 루트로 하는 트리에서 다시 탐색 시작
+    int mid = (start + end) / 2;
+    return sum(tree, node*2, start, mid, left, right) + sum(tree, node*2+1, mid+1, end, left, right);
+}
+
+// 데이터 변경하기
+void update(vector<long long> &tree, int node, int start, int end, int index, long long diff) {
+    if (index < start || index > end) return;    // case 2
+    tree[node] = tree[node] + diff;    // case 1
+
+    // 리프 노드가 아닌 경우 자식도 변경해줘야 하기 때문에,
+    // 리프 노드인지 검사를 하고 아래 자식 노드를 갱신해준다.
+    if (start != end) {
+        int mid = (start + end) / 2;
+        update(tree,node*2, start, mid, index, diff);
+        update(tree,node*2+1, mid+1, end, index, diff);
+    }
+}
+
+update(tree, 1, 0, N-1, index, diff);
+```
+<a href="https://eun-jeong.tistory.com/18" class="btn btn--info">More Info</a>
 
 ### 기타
 
