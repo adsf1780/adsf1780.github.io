@@ -123,7 +123,7 @@ vector<int> v; // 함수 밖에서 정의
 v.assign(n, 0); // 함수 안에서 n개의 0으로 초기화
 v.resize(10); // 10만큼의 공간을 확보만 함. 즉 0~9까지의 인덱스로 접근 가능. reserve 쓰면 v[idx]가 UB임.
 
-// 찾기
+// 찾기: O(n)
 cout << find(v.begin(), v.end(), 7) - v.begin(); // 7의 index 반환
 
 if(find(v.begin(), v.end(), 5) == v.end()){ // vector 내에 존재하지 않으면 v.end() 반환
@@ -177,6 +177,10 @@ v.clear(); // capacity는 유지됨
 ### array
 ```
 array<int, 3>;
+
+vector<array<int, 3>> v;
+v.emplace_back(array<int, 3>{1, 2, 3});
+v.push_back({1, 2, 3});
 ```
 
 ### set
@@ -196,7 +200,7 @@ s.erase(7); // 원소로 제거
 s.erase(s.begin() + 1); // 1번째 인덱스 원소 제거
 s.clear(); // set에 있는 모든 원소 삭제
 
-// 찾기
+// 찾기: O(log n)
 s.find(3); // 원소 7에 해당하는 iterator 반환
 
 // for문
@@ -249,7 +253,7 @@ cout << m[1] << endl; // 'a' 출력
 // key로 삭제
 m.erase(3); // key로 제거
 
-// key로 탐색
+// key로 탐색: O(log n)
 cout << (m.find(1)) -> first << endl; // key 값 반환 = 1
 cout << (m.find(1)) -> second << endl; // value 값 반환 = 'a'
 
@@ -695,6 +699,44 @@ void update(vector<long long> &tree, int node, int start, int end, int index, lo
 update(tree, 1, 0, N-1, index, diff);
 ```
 <a href="https://eun-jeong.tistory.com/18" class="btn btn--info">More Info</a>
+
+### 삼항 연산
+```
+(조건식) ? 참일 때 값 : 거짓일 때 값;
+
+int a = 10;
+int b = 20;
+
+cout << (a > b ? a : b) << endl; // 20 출력
+```
+
+### 비트마스킹
+```
+x |= (1 << i); #i번째 비트를 1로 만든다.
+
+x &= ~(1 << i); #i번째 비트를 0으로 만든다.
+
+x ^= (1 << i); #i번째 비트를 전환한다.
+
+if (x & (1 << i)) #i번째 비트가 켜져있는지 확인한다.
+
+#전체 비트중 1의 크기세기
+int cnt = __builtin_popcount(x);       // int
+int cntll = __builtin_popcountll(x);   // long long
+
+int bit = (x >> i) & 1; #i번째 비트읽기
+
+#전체 비트 초기
+int mask = 0;   // 모든 비트 0
+mask = ~0;      // 모든 비트 1
+
+#비트마스킹을 문자열로 출력
+string s = bitset<32>(x).to_string();
+
+#각 mask를 부분집합으로 해석
+for (int mask = 0; mask < (1<<N); mask++) {
+}
+```
 
 ### 기타
 
