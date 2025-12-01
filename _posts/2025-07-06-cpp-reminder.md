@@ -134,6 +134,11 @@ if(find(v.begin(), v.end(), 5) == v.end()){ // vector 내에 존재하지 않으
 vector<pair<int, int>> v;
 
 auto it = find_if(v.begin(), v.end(), [=](const pair<int, int> p)-> bool{return p.first == elem1;});
+// find_if: 조건 만족하는 첫 번째 원소를 찾아 iterator 반환
+// [=]: 람다 함수
+// (const pair<int, int> p): 람다 함수의 파라미터
+// -> bool: 함수의 return 타입
+// return p.first == elem1;: true 반환할 조건
 
 // 모든 요소 더하기
 #include <numeric>
@@ -712,6 +717,8 @@ cout << (a > b ? a : b) << endl; // 20 출력
 
 ### 비트마스킹
 ```
+int x = (1 << 6) - 1; # 111111 비트를 만든다.
+
 x |= (1 << i); #i번째 비트를 1로 만든다.
 
 x &= ~(1 << i); #i번째 비트를 0으로 만든다.
