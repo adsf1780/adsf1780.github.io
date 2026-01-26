@@ -178,7 +178,7 @@ translation task에서 transformer는 recurrent 또는 convolutional layer 보�
 # 참고 자료
 - https://cpm0722.github.io/pytorch-implementation/transformer
 - https://gemini.google.com/share/a80206554221
-
+- https://www.youtube.com/watch?v=RQowiOF_FvQ&ist=PLoROMvodv4rOmsNzYBMe0gJY2XS8AQg16&index=8
 
 
 
