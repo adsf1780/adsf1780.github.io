@@ -1,7 +1,7 @@
 ---
 title: "jekyll 기억할 것들"
 header:
-  overlay_image: https://stqnq5ux4599.edge.naverncp.com/data2/content/image/2023/04/24/.cache/512/202304240914899.jpg
+  # overlay_image: https://stqnq5ux4599.edge.naverncp.com/data2/content/image/2023/04/24/.cache/512/202304240914899.jpg
 categories: [jekyll]
 tags: [jekyll, post]
 excerpt: jekyll로 블로그 작성하기 위해 기억할 내용들
@@ -11,7 +11,7 @@ show_each_post: false
 ## Server Local에서 Host하기
 
 1. PowerShell에서 asdf178.github.io 폴더로 경로 이동하기
-2. bundle exec jekyll s 또는 bundle exec jekyll serve (- -livereload) 입력하기
+2. bundle exec jekyll s 또는 bundle exec jekyll serve - -livereload 입력하기(후자는 실시간 리로딩)
 3. http://127.0.0.1:4000/ 열기
 
 ## Post 작성하기

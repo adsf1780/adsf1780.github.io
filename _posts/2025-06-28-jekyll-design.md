@@ -8,7 +8,7 @@ excerpt: jekyll로 블로그 작성할 때 팁들
 ## 이미지 추가하기
 
 ```markdown
-![설명]({{site.url}}/assets/images/~.png)
+![설명](\assets\images\2025-07-09-tree\image1.png)
 ```
 <a href="https://mmistakes.github.io/minimal-mistakes/docs/helpers/#figure" class="btn btn--info">More Info</a>
 
@@ -19,6 +19,10 @@ excerpt: jekyll로 블로그 작성할 때 팁들
 ## 이미지 위치 조정하기
 
 <pre>![설명](경로)<strong>{: .align-center}</strong></pre>
+
+## 이미지 크기 및 위치 조절 한번에 하기
+
+<pre>{: width="70%" .align-center}</pre>
 
 ## 이미지 나란히 삽입하기(2개, 3개 등...)
 
@@ -110,11 +114,35 @@ Front Matter에 `use_math: true` 넣기
 
 - inline 방식으로 수식을 삽입할 때
 ```markdown
-$ (수식) $
+$ 수식 $
 ```
 
 - block 방식으로 수식을 삽입할 때
 ```markdown
-$$ (수식) $$
+$$
+수식
+$$
 ```
+
+- 띄어쓰기(작게)
+```markdown
+$ \, $
+```
+
+- 띄어쓰기(크게)
+```markdown
+$ \; $
+```
+
+- 줄 변환
+```markdown
+$ \\ $
+```
+
+- 분수
+```markdown
+$ \frac{분자}{분모} $
+```
+
+
 <a href="https://yoongyoonge.github.io/blog-mathematical-expression/" class="btn btn--info">More Info</a>
