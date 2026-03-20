@@ -145,4 +145,4 @@ $ \frac{분자}{분모} $
 ```
 
 
-<a href="https://yoongyoonge.github.io/blog-mathematical-expression/" class="btn btn--info">More Info</a>
+<a href="https://kangdy25.tistory.com/m/105" class="btn btn--info">More Info</a>
